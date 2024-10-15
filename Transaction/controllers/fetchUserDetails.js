@@ -4,6 +4,8 @@ exports.getAllUserDetails = async(req,res) => {
     try{
         const users = await User.find({}).populate('tarnsactionDetails').exec();
 
+        users.map((user) => user.password = null)
+
         return res.status(200).json({
             success : true,
             message : users
@@ -23,7 +25,7 @@ exports.getSingleUserDetails = async (req,res) => {
         const {id} = req.body;
 
         const user = await User.findById(id).populate('tarnsactionDetails').exec();
-
+        user.password = null;
         return res.status(200).json({
             success : true,
             message : user

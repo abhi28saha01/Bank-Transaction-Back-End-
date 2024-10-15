@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 exports.registration = async (req,res) => {
     try{
         //Fetch the Required Information
-        const {name,email,contactNumber,initialAmpount,password,confirmPassword} = req.body;
+        const {name,email,contactNumber,initialAmount,password,confirmPassword} = req.body;
 
         //Validation
-        if(!name || !email || !password || !confirmPassword || !contactNumber){
+        if(!name || !email || !password || !confirmPassword || !contactNumber || !initialAmount){
             return res.status(400).json({
                 success : false,
                 message : 'Enter the Details for Registration Carefully'
@@ -44,7 +44,7 @@ exports.registration = async (req,res) => {
         }
         
         //Creating New User
-        const newUser = await User.create({name,email,contactNumber,password : hashPass,balance : initialAmpount});
+        const newUser = await User.create({name,email,contactNumber,password : hashPass,balance : initialAmount});
 
         //Return Successful Message
         res.status(200).json({
